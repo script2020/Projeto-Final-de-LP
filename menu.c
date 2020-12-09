@@ -16,12 +16,15 @@ typedef struct{
     int dia,mes,ano;
 }Data;
 
-typedef struct{
-    int codigo,nTelemovel;
-    Data dataNas;
-    char nome[50],estadoCivil[50];
-}Aluno;
-
+typedef struct funcionario{
+    
+    int codigo,numero_telemovel,numero_filhos;
+    int tempo_empresa;
+    char nome[TAM_NOME],cargo,estado_civil;
+    Data data_entrada,data_saida;
+    float subsidio_alimentacao, vencimento_base;
+           
+}Funcionario;
 
 void menuPrincipal(){
     int op,registo = 0;
