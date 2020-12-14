@@ -6,16 +6,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "menu.h"
 #include "funcionario.h"
 /*
  * 
  */
-#define TAM_NOME 100
-
-typedef struct{
-    int dia,mes,ano;
-}Data;
 
 
 
