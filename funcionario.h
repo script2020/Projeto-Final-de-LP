@@ -19,6 +19,14 @@ extern "C" {
 #endif
    
 void criar_funcionario(Funcionario *funcionario, int *registo);
+   
+   typedef struct{
+    int codigo,numero_telemovel,numero_filhos;
+    int tempo_empresa;
+    char nome[TAM_NOME],cargo,estado_civil;
+    Data data_entrada,data_saida;
+    float subsidio_alimentacao, vencimento_base;
+}Funcionario;
 
 #ifdef __cplusplus
 }
