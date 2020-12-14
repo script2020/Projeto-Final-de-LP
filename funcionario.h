@@ -18,6 +18,8 @@
 extern "C" {
 #endif
    
+#define TAM_NOME 100
+   
 void criar_funcionario(Funcionario *funcionario, int *registo);
    
    typedef struct{
@@ -27,6 +29,11 @@ void criar_funcionario(Funcionario *funcionario, int *registo);
     Data data_entrada,data_saida;
     float subsidio_alimentacao, vencimento_base;
 }Funcionario;
+   
+typedef struct{
+    int dia,mes,ano;
+}Data;
+
 
 #ifdef __cplusplus
 }
