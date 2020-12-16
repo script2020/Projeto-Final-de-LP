@@ -64,8 +64,8 @@ typedef struct {
     int criarFuncionario(Funcionario *funcionario, int * registo);
     void editarFuncionario(Funcionario *funcionario);
     void removerFuncionario(Funcionario *funcionario);
-    int procurarFucnionario(Funcionario funcionario, int *registo);
-    
+    int procurarFucnionario(Funcionario funcionario);
+    void apagarDadosFuncionario(Funcionario *funcionario);
   
     
     
