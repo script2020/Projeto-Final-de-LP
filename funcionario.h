@@ -36,10 +36,7 @@ extern "C" {
 #define MAX_SUB_ALIMENTACAO 100 //pus um numero à sorte,VER ISSO
 #define MIN_FILHOS 0
 #define MAX_FILHOS 100   //pus um numero à sorte,VER ISSO
-#define MIN_TEMPO_EMPRESA 0
-#define MAX_TEMPO_EMPRESA 100
-#define MIN_ANOS_TRABALHO 0
-#define MAX_ANOS_TRABALHO 100
+
     
     
     
