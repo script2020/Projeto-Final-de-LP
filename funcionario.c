@@ -8,6 +8,16 @@
 #include "funcionario.h"
 #include "input.h"
 
+#define FILENAME "funcionarios.txt"
+
+FILE *funcionario = fopen(FILENAME, "w"); //NAO SEI SE É ASSIM QUE SE FAZZZZZ HELPPPPPPPP
+if (funcionario == NULL) {
+exit(EXIT_FAILURE);
+}
+fprintf(funcionario, criarFuncionario(Funcionarios *funcionarios));
+
+
+
 int procurarFuncionario(Funcionarios funcionarios, int codigo) {
 
     for (int i = 0; i < funcionarios.registo; i++) {
@@ -91,4 +101,4 @@ funcionarios->registo--;
  
     
 }
-    
+    fclose(funcionarios);
