@@ -60,5 +60,35 @@ int criarFuncionario(Funcionarios *funcionarios) { //esta a dar erro e nao sei p
                 obterInt(MIN_ANO, MAX_ANO, "\nAno de saida\n");
        //falta fazer as contas para o tempo que ele trabalha na esmpresa
         return funcionarios->registo++;
+        
     }
+    
+    void editarFuncionario(Funcionario *funcionario) {
+lerString(funcionario->nome,TAM_NOME,"\nNome do funcionário:\n" );
+funcionario->data_nascimento.dia = obterInt(MIN_DIA, MAX_DIA, "\nDia de nascimento:\n");
+funcionario->data_nascimento.mes = obterInt(MIN_MES, MAX_MES, "\nMês de nascimento:\n");
+funcionario->data_nascimento.ano = obterInt(MIN_ANO, MAX_ANO, "\nAno de nascimento:\n");
+}
+  void apagarDadosFuncionario(Funcionario *funcionario) {
+funcionario->codigo = 0;
+strcpy(funcionario->nome, "");
+funcionario->data_nascimento.dia =funcionario->data_nascimento.mes = funcionario->data_nascimento.ano = 0;
+}
+    
+void removerFuncionario(Funcionarios *funcionarios){
+    
+   int codigo = procurarFuncionario(*funcionarios, obterInt(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO, "\nCódigo de funcionário:\n");
+if (codigo != -1) {
+   for (int i = codigo; i < funcionarios->registo - 1; i++) {
+ufuncionarios->funcionarios[i] = funcionarios->funcionarios[i + 1]; //passar o funcionario que estava "acima" do que foi apagado  para o lugar do apagado
+}
+apagarDadosFuncionario(&funcionarios->funcionarios[i]);
+funcionarios->registo--;
+} else {
+  printf("O funcionário não esxiste na lista!");
+}
+}
+ 
+    
+}
     
