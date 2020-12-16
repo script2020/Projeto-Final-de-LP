@@ -20,7 +20,7 @@ extern "C" {
    
 #define TAM_NOME 100
    
-void criar_funcionario(Funcionario *funcionario, int *registo);
+void criarFuncionario(Funcionario *funcionario, int *registo);
    
    typedef struct{
     int codigo,numero_telemovel,numero_filhos;
