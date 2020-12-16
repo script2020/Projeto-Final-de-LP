@@ -23,7 +23,7 @@ int procurarFuncionario(Funcionarios funcionarios, int codigo) {
 int criarFuncionario(Funcionarios *funcionarios) { //esta a dar erro e nao sei pq help
 
     int codigo;
-    if (procurarFuncionario(*funcionarios, codigo) == -1) {
+    if (procurarFuncionario(*funcionarios, codigo) == -1) { 
 
         lerString(funcionarios->funcionarios[funcionarios->registo].nome, TAM_NOME, "\nNome do funcionário:\n");
         funcionarios->funcionarios[funcionarios->registo].codigo =
@@ -58,14 +58,7 @@ int criarFuncionario(Funcionarios *funcionarios) { //esta a dar erro e nao sei p
                 obterInt(MIN_MES, MAX_MES, "\nMês de saida:\n");
         funcionarios->funcionarios[funcionarios->registo].data_saida.ano =
                 obterInt(MIN_ANO, MAX_ANO, "\nAno de saida\n");
-        //fazer as perguntas melhor no tempo de esmpresa
-        funcionarios->funcionarios[funcionarios->registo].tempo_empresa.ano =
-                obterInt(MIN_ANOS_TRABALHO, MAX_ANOS_TRABALHO, "\nAnos de trabalho na esmpresa:\n");
-        funcionarios->funcionarios[funcionarios->registo].tempo_empresa.mes =
-                obterInt(MIN_MES, MAX_MES, "\nMeses de trabalho na esmpresa:\n");
-        funcionarios->funcionarios[funcionarios->registo].tempo_empresa.dia =
-                obterInt(MIN_DIA, MAX_DIA, "\nDias de trabalho na esmpresa:\n");
-
+       //falta fazer as contas para o tempo que ele trabalha na esmpresa
         return funcionarios->registo++;
     }
     
