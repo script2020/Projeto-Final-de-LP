@@ -19,11 +19,11 @@ extern "C" {
 #endif
 
 
-    int obterInt(int minValor, int maxValor, char *msg);
-    float obterFloat(float minValor, float maxValor, char *msg);
-    double obterDouble(double minValor, double maxValor, char *msg);
-    char obterChar(char *msg);
-    void lerString(char *string, unsigned int tamanho, char *msg);
+int obter_int(int minValor, int maxValor, char *msg);
+float obter_float(float minValor, float maxValor, char *msg);
+double obter_double(double minValor, double maxValor, char *msg);
+char obter_char(char *msg);
+void ler_string(char *string, unsigned int tamanho, char *msg);
 
 
 #ifdef __cplusplus
