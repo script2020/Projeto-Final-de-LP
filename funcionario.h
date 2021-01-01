@@ -18,55 +18,80 @@
 extern "C" {
 #endif
 
-#define MAX_FUNCIONARIOS 2000
-#define TAM_NOME 200   
-#define MIN_NUM_FUNCIONARIO 0
-#define MAX_NUM_FUNCIONARIO 10000
-#define MIN_DIA 0
-#define MAX_DIA 31
-#define MIN_MES 1
-#define MAX_MES 12
-#define MIN_ANO 1900
-#define MAX_ANO 2021
-#define MIN_TELEMOVEL 0 //minimo poe se zero??
-#define MAX_TELEMOVEL 9
-#define MIN_VENC_BASE 0
-#define MAX_VENC_BASE 100 //pus um numero à sorte,VER ISSO
-#define MIN_SUB_ALIMENTACAO 0
-#define MAX_SUB_ALIMENTACAO 100 //pus um numero à sorte,VER ISSO
-#define MIN_FILHOS 0
-#define MAX_FILHOS 100   //pus um numero à sorte,VER ISSO
+
+#define  MAX_FUNCIONARIOS  2000
+#define  TAM_NOME  200   
+#define  MIN_NUM_FUNCIONARIO  0
+#define  MAX_NUM_FUNCIONARIO  10000
+#define  MIN_DIA  0
+#define  MAX_DIA  31
+#define  MIN_MES  1
+#define  MAX_MES  12
+#define  MIN_ANO  1900
+#define  MAX_ANO  2021
+#define  MIN_TELEMOVEL  0 
+#define  MAX_TELEMOVEL  9
+#define  MIN_VENC_BASE  0
+#define  MAX_VENC_BASE  100  
+#define  MIN_SUB_ALIMENTACAO  0
+#define  MAX_SUB_ALIMENTACAO  100  
+#define  MIN_FILHOS  0
+#define  MAX_FILHOS  100  
 
     
-    
-    
-    
+typedef enum {
+    casado, solteiro, viuvo, divorciada
+}Estado_civil;
 
-    
-    typedef struct {
-        int dia, mes, ano;
-    } Data;
+typedef enum {
+    empregada_limpeza,
+    costureira,
+    modelista,
+    empregada_escritorio,
+    encarregada_linha,
+    socio_gerente
+}Cargo;
 
-    typedef struct {
-        int codigo, numero_telemovel, numero_filhos;
-        char nome [TAM_NOME], cargo, estado_civil;
-        Data data_entrada, data_saida, data_nascimento, tempo_empresa;
-        float subsidio_alimentacao, vencimento_base;
-        int registo;
-    } Funcionario;
+typedef struct  {
+    int tm_sec; //representa os segundos de 0 a 59
+    int tm_min; //representa os minutos de 0 a 59
+    int tm_hour; //representa as horas de 0 a 24
+    int tm_mday; //dia do mês de 1 a 31
+    int tm_mon; //representa os meses do ano de 0 a 11
+    int tm_year; //representa o ano a partir de 1900
+    int tm_wday; //dia da semana de 0 (domingo) até 6 (sábado)
+    int tm_yday; // dia do ano de 1 a 365
+    int tm_isdst; //indica horário de verão se for diferente de zero
+}Time;
     
 typedef struct {
-        int registo;
-        Funcionario funcionarios[MAX_FUNCIONARIOS];
-    } Funcionarios;
+    int dia, mes, ano;
+}Data;
 
+typedef enum {
+    false , true
+}Bool;
 
-    int criarFuncionario(Funcionario *funcionario, int * registo);
-    void editarFuncionario(Funcionario *funcionario);
-    void removerFuncionario(Funcionario *funcionario);
-    int procurarFucnionario(Funcionario funcionario);
-    void apagarDadosFuncionario(Funcionario *funcionario);
+typedef struct {
+    int codigo, numero_telemovel, numero_filhos ;
+    char nome [TAM_NOME];
+    Cargo cargo;
+    Estado_civil estado_civil;
+    Data data_entrada, data_saida, data_nascimento, tempo_empresa;
+    float subsidio_alimentacao, vencimento_base;
+    int registo; 
+    Bool eliminado;
+}Funcionario;
+
   
+void criar_funcionario(Funcionario * funcionario);
+void editar_funcionario(Funcionario * funcionario);
+void remover_funcionario(Funcionario * funcionario);
+void mostrar_funcionario(Funcionario *funcionario);
+Bool esta_removido(Funcionario *funcionario);
+void criar_Data(Data* data, int dia, int mes, int ano);
+Funcionario procurar_funcionario(int codigo, FILE *file);
+
     
     
 
