@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "newfile.h"
+#include "time.h"
+
+void tempo_hoje() {
+
+    //armazena data e hora  
+    struct tm *data_hora_atual;
+
+    //armazenar o tempo em segundos 
+    time_t segundos;
+
+    //obtendo o tempo em segundos
+    time(&segundos);
+
+    //Converte os segundos para o tempo local
+    data_hora_atual = localtime(&segundos);
+    
+    //Acessando dados convertidos para a struct data_hora_atual  
+    printf("\nDia: %d\n", data_hora_atual->tm_mday);
+
+    //para retornar o mês corretamente devemos adicionar +1 
+    printf("\nMes: %d\n", data_hora_atual->tm_mon + 1);
+
+    //para retornar o ano corretamente devemos adicionar 1900 
+    printf("\nAno: %d\n\n", data_hora_atual->tm_year + 1900);
+
+    printf("\nData: %d/", data_hora_atual->tm_mday);
+    printf("%d/", data_hora_atual->tm_mon + 1); //mês
+    printf("%d\n\n", data_hora_atual->tm_year + 1900); //ano
+
+}
+
+void calcurar_tempo_empresa(Funcionario *funcionario) {
+
+    struct tm *data_hora_atual;
+    
+    int year_today = data_hora_atual->tm_year + 1900;
+    int empresa_anos= funcionario->tempo_empresa.ano;
+    funcionario->data_entrada.ano = 2000;
+    
+    empresa_anos = year_today - funcionario->data_entrada.ano;
+    printf("Anos empresa: %d ", empresa_anos);
+
+}
+int main(int argc, char** argv) {
+    
+    Funcionario *funcionario;
+    calcurar_tempo_empresa(&funcionario);
+    tempo_hoje();
+    
+    return (EXIT_SUCCESS);
+}
+
