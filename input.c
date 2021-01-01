@@ -10,20 +10,26 @@
 
 #define VALOR_INVALIDO "O valor inserido é inválido."
 
-void cleanInputBuffer() {
+/*
+void cleanInputBuffer() { //ver isto!!
     char ch;
     while ((ch = getchar()) != '\n' && ch != EOF);
 }
+*/
 
 int obterInt(int minValor, int maxValor, char *msg) {
     int valor;
     printf(msg);
     while (scanf("%d", &valor) != 1 || valor < minValor || valor > maxValor) {
         puts(VALOR_INVALIDO);
+/*
         cleanInputBuffer();
+*/
         printf(msg);
     }
+/*
     cleanInputBuffer();
+*/
     return valor;
 }
 
@@ -32,10 +38,14 @@ float obterFloat(float minValor, float maxValor, char *msg) {
     printf(msg);
     while (scanf("%f", &valor) != 1 || valor < minValor || valor > maxValor) {
         puts(VALOR_INVALIDO);
+/*
         cleanInputBuffer();
+*/
         printf(msg);
     }
+/*
     cleanInputBuffer();
+*/
     return valor;
 }
 
@@ -44,10 +54,14 @@ double obterDouble(double minValor, double maxValor, char *msg) {
     printf(msg);
     while (scanf("%lf", &valor) != 1 || valor < minValor || valor > maxValor) {
         puts(VALOR_INVALIDO);
+/*
         cleanInputBuffer();
+*/
         printf(msg);
     }
+/*
     cleanInputBuffer();
+*/
     return valor;
 }
 
@@ -58,15 +72,18 @@ void lerString(char *string, unsigned int tamanho, char *msg) {
         if (string[len] == '\n') {
             string[len] = '\0';
         } else {
+/*
             cleanInputBuffer();
+*/
         }
     }
 }
-
 char obterChar(char *msg) {
     char valor;
     printf(msg);
     valor = getchar();
+/*
     cleanInputBuffer();
+*/
     return valor;
 }
