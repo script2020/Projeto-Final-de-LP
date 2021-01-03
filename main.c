@@ -6,9 +6,9 @@
 
 /* 
  * File:   main.c
- * Author: Gabriel
+ * Author: Maria
  *
- * Created on 9 de dezembro de 2020, 15:16
+ * Created on 30 de dezembro de 2020, 13:36
  */
 
 
@@ -30,7 +30,7 @@ void menu_funcionarios() {
     int codigo_temp;
 
 
-    do {//falta mostrar
+    do {
         printf("GESTÃO DE FUNCIONÁRIOS\n");
         printf("-----------------\n");
         printf("1 - Inserir\n");
@@ -45,7 +45,7 @@ void menu_funcionarios() {
 
         switch (op) {
             case 0:
-                exit(0);
+                
                 break;
             case 1:
                 criar_funcionario(funcionario_temp);
@@ -64,18 +64,23 @@ void menu_funcionarios() {
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
                 *funcionario_temp = procurar_funcionario(codigo_temp, file);
                 if (funcionario_temp->codigo == -1) {
-                    printf("Funcionario nao encontrado\n");
+                    printf("Funcionário não encontrado\n");
                     break;
                 }
                 remover_funcionario(funcionario_temp);
                 break;
-            case 4://como faço o fscanf
+            case 4:
+                codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
+                *funcionario_temp = procurar_funcionario(codigo_temp, file);
+                if (funcionario_temp->codigo == -1) {
+                    printf("Funcionario não encontrado\n");
+                    break;
+                }
                 mostrar_funcionario(funcionario_temp);
-                fscanf();
                 break;
                 
             default:
-                printf("Opção inválida!");
+                printf("Opção inválida!\n");
                 break;
         }
     } while (op != 0);
@@ -91,5 +96,3 @@ int main() {
     fclose(file);
     return 0;
 }
-
-
