@@ -8,6 +8,17 @@
 #include "funcionario.h"
 #include "input.h"
 #include "time.h"
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+#include <stdio.h>
+
+#include "funcionario.h"
+#include "input.h"
+#include "time.h"
 
 /**
  * Esta função cria uma data
@@ -78,10 +89,44 @@ void calcurar_tempo_empresa(Funcionario *funcionario){
  * 
  */
 void criar_funcionario(Funcionario *funcionario) {
+    
     funcionario->eliminado = false;
     ler_string(funcionario->nome, TAM_NOME, "Nome: ");
-    funcionario->codigo = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-    funcionario->cargo = obter_char("Cargo: ");
+    funcionario->codigo = obter_int(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO, "Código: ");
+    printf("----------------------------\n");
+    printf("OPÇÕES DE CARGO:\n");
+    printf("0 - Empregado/a de limpeza\n");
+    printf("1 - Costureiro/a\n");
+    printf("2 - Modelista\n");   
+    printf("3 - Empregado/a de escritório\n");
+    printf("4 - Encarregado/a de linha\n");
+    printf("5 - Sócio/a gerente\n");
+    printf("----------------------------\n");
+    funcionario->cargo = obter_int(MIN_CARGO,MAX_CARGO,"Cargo: ");
+    
+    switch (funcionario->cargo) {
+        case 0:
+            printf("Vencimento Base: %.2f ", VENC_BASE_EMP_LIMP);
+            break;
+        case 1:
+            printf("Vencimento Base: %.2f ", VENC_BASE_COST);
+            break;
+        case 2:
+            printf("Vencimento Base: %.2f ", VENC_BASE_MOD);
+            break;
+        case 3:
+            printf("Vencimento Base: %.2f ", VENC_BASE_EMP_ESC);
+            break;
+        case 4:
+            printf("Vencimento Base: %.2f ", VENC_BASE_ENC_LINHA);
+            break;
+        case 5:
+            printf("Vencimento Base: %.2f ", VENC_BASE_SOC_GER);
+            break;
+        default:
+            printf("Opção inválida.\n");
+
+    }
     printf("\nData de entrada:\n");
     funcionario->data_entrada.dia = obter_int(MIN_DIA, MAX_DIA, "Dia: ");
     funcionario->data_entrada.mes = obter_int(MIN_MES, MAX_MES, "Mês: ");
@@ -92,9 +137,13 @@ void criar_funcionario(Funcionario *funcionario) {
     funcionario->data_nascimento.ano = obter_int(MIN_ANO, MAX_ANO, "Ano: ");
     funcionario->estado_civil = obter_char("Estado civíl: "); 
     funcionario->numero_filhos = obter_int(MIN_FILHOS,MAX_FILHOS,"Número de filhos: ");
-    funcionario->numero_telemovel = obter_int(MIN_TELEMOVEL,MAX_TELEMOVEL,"Número de telemóvel: ");    
-    funcionario->subsidio_alimentacao = obter_float(MIN_SUB_ALIMENTACAO, MAX_SUB_ALIMENTACAO, "Subsídio de alimentação: ");
+    funcionario->numero_telemovel = obter_int(MIN_TELEMOVEL,MAX_TELEMOVEL,"Número de telemóvel: ");  
+    
+    
     funcionario ->vencimento_base = obter_float(MIN_VENC_BASE, MAX_VENC_BASE, "Vencimento Base: ");
+    
+    
+    
 }
 /**
  * Esta função mostra um funcionário
