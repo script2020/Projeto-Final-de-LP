@@ -31,7 +31,7 @@ extern "C" {
 #define  MIN_ANO  1900
 #define  MAX_ANO  2021
 #define  MIN_TELEMOVEL  0 
-#define  MAX_TELEMOVEL  9
+#define  MAX_TELEMOVEL  999999999
 #define  MIN_VENC_BASE  0
 #define  MAX_VENC_BASE  10
 #define  MIN_SUB_ALIMENTACAO  0
