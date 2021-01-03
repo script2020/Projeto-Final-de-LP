@@ -19,6 +19,7 @@ extern "C" {
 #endif
 
 
+
 #define  MAX_FUNCIONARIOS  2000
 #define  TAM_NOME  200   
 #define  MIN_NUM_FUNCIONARIO  0
@@ -32,12 +33,19 @@ extern "C" {
 #define  MIN_TELEMOVEL  0 
 #define  MAX_TELEMOVEL  9
 #define  MIN_VENC_BASE  0
-#define  MAX_VENC_BASE  100  
+#define  MAX_VENC_BASE  10
 #define  MIN_SUB_ALIMENTACAO  0
 #define  MAX_SUB_ALIMENTACAO  100  
 #define  MIN_FILHOS  0
 #define  MAX_FILHOS  100  
-
+#define  MIN_CARGO 0
+#define  MAX_CARGO 6
+#define VENC_BASE_EMP_LIMP 2.65
+#define VENC_BASE_COST 2.90
+#define VENC_BASE_SOC_GER 3.13
+#define VENC_BASE_ENC_LINHA 3.44
+#define VENC_BASE_EMP_ESC 4.16
+#define VENC_BASE_MOD  6.25
     
 typedef enum {
     casado, solteiro, viuvo, divorciada
@@ -91,10 +99,6 @@ void mostrar_funcionario(Funcionario *funcionario);
 Bool esta_removido(Funcionario *funcionario);
 void criar_Data(Data* data, int dia, int mes, int ano);
 Funcionario procurar_funcionario(int codigo, FILE *file);
-
-    
-    
-
 
 
 
