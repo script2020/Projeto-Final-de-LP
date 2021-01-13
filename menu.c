@@ -18,6 +18,7 @@ void menuPrincipal(){
         puts("TÊXTEIS LDA");
         puts("-----------------");
         puts("1 - Gestão de Funcionários");
+        puts("2 - Salários");
         puts("0 - Sair");
         puts("-----------------");
         
@@ -29,6 +30,9 @@ void menuPrincipal(){
                 exit(0);
                 break;
             case 1:
+                menuFuncionarios();
+                break;
+            case 2:
                 menuFuncionarios();
                 break;
             default:
