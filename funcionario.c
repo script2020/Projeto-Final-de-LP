@@ -357,6 +357,7 @@ void mostrar_funcionario(Funcionario *funcionario) {
         funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
     }
 
+    
     printf("Tempo na empresa\n");
     printf("Anos: %d\n", funcionario->tempo_empresa.ano);
     printf("Meses: %d\n", funcionario->tempo_empresa.mes);
