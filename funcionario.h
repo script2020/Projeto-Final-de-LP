@@ -87,6 +87,7 @@ extern "C" {
         Estado_civil estado_civil;
         Data data_entrada, data_saida, data_nascimento, tempo_empresa, data_entrada_temp, data_saida_temp;
         float subsidio_alimentacao, vencimento_base;
+        tm data_atual, data_atual_temp;
 
     } Funcionario;
 
