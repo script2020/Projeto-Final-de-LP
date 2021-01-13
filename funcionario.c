@@ -53,17 +53,17 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
     time_t t = time(NULL);
     struct tm data_atual = *localtime(&t);
 
-    if (funcionario->data_entrada.mes > funcionario->data_saida.mes) {
+    if (funcionario->data_entrada.mes > funcionario->data_atual.tm_mon) {
         funcionario->data_entrada.mes = funcionario->data_entrada_temp.mes;
-        funcionario->data_saida.mes = funcionario->data_saida_temp.mes;
+        funcionario->data_atual.tm_mon + 1 = funcionario->data_atual_temp.tm_mon + 1;
 
         x = funcionario->data_entrada_temp.mes;
-        funcionario->data_entrada_temp.mes = funcionario->data_saida_temp.mes;
-        funcionario->data_saida_temp.mes = x;
+        funcionario->data_entrada_temp.mes = funcionario->data_atual_temp.tm_mon;
+        funcionario->data_atual_temp.tm_mon = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada.dia;
 
     }
     if (funcionario->data_entrada.dia > funcionario->data_saida.dia) {
@@ -71,19 +71,20 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
         funcionario->data_saida.dia = funcionario->data_saida_temp.dia;
 
         x = funcionario->data_entrada_temp.dia;
-        funcionario->data_entrada_temp.dia = funcionario->data_saida_temp.dia;
-        funcionario->data_saida_temp.dia = x;
+        funcionario->data_entrada_temp.dia = funcionario->data_atual_temp.tm_mday;
+        funcionario->data_atual_temp.tm_mday = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada.dia;
     }
-    funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-    funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-    funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
-    printf("Anos empresa: %d\n", (data_atual.tm_year + 1900) - funcionario->data_entrada.ano);
-    printf("Meses empresa: %d\n", data_atual.tm_mon + 1 - funcionario->data_entrada.mes);
-    printf("Dias empresa: %d\n", data_atual.tm_mday - funcionario->data_entrada.dia);
+    funcionario->tempo_empresa.ano = funcionario->data_atual.tm_year + 1900 - funcionario->data_entrada.ano;
+    funcionario->tempo_empresa.mes = funcionario->data_atual.tm_mon + 1 - funcionario->data_entrada.mes;
+    funcionario->tempo_empresa.dia = funcionario->data_atual.tm_mday - funcionario->data_entrada.dia;
+    
+    printf("Anos empresa: %d\n", funcionario->tempo_empresa.ano);
+    printf("Meses empresa: %d\n", funcionario->tempo_empresa.mes);
+    printf("Dias empresa: %d\n", funcionario->tempo_empresa.dia);
 
 }
 
