@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,58 +11,66 @@
  * Created on 30 de dezembro de 2020, 13:36
  */
 
-
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-#include "input.h"
+
 #include "funcionario.h"
+#include "input.h"
+#include "time.h"
+#include "irs.h"
 
 FILE *file;
 
-/**
- * esta função premite gerir os funcionários
- */
-void menu_funcionarios() {
+//APRENDER A FAZER DEBUG
 
-    int op, registo = 0;
+/**
+ * Esta função premite gerir os funcionários
+ * 
+ * @param lista_funcionarios
+ * @param tam_lista
+ */
+void menu_funcionarios(Funcionario *lista_funcionarios, int tam_lista) {
+
+    int op;
     Funcionario *funcionario_temp;
     int codigo_temp;
 
-
     do {
-        printf("GESTÃO DE FUNCIONÁRIOS\n");
-        printf("-----------------\n");
+        printf("\t GESTÃO DE \n");
+        printf("\tFUNCIONÁRIOS\n");
+        printf("-----------------------\n");
+        printf("0 - Sair\n");
         printf("1 - Inserir\n");
         printf("2 - Editar\n");
         printf("3 - Eliminar\n");
         printf("4 - Mostrar\n");
-        printf("0 - Sair\n");
-        printf("-----------------\n");
+        printf("-----------------------\n");
 
-        printf("Insira a sua opção:\n");
-        scanf("%d", &op);
-
+        op = obter_int(0, 4, "Opção: ");
         switch (op) {
             case 0:
-                
                 break;
             case 1:
-                criar_funcionario(funcionario_temp);
-                fwrite(funcionario_temp, sizeof (Funcionario), 1, file);
+
+
+                criar_funcionario(funcionario_temp, lista_funcionarios, tam_lista, file);
+                //POR PARA SE ELE JA FOI CRIADO??
                 break;
             case 2:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, file);
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+
                 if (funcionario_temp->codigo == -1) {
-                    printf("Funcionario nao encontrado\n");
+                    printf("Funcionario não encontrado\n");
                     break;
                 }
                 editar_funcionario(funcionario_temp);
+
                 break;
             case 3:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, file);
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
                 if (funcionario_temp->codigo == -1) {
                     printf("Funcionário não encontrado\n");
                     break;
@@ -71,14 +79,14 @@ void menu_funcionarios() {
                 break;
             case 4:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, file);
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
                 if (funcionario_temp->codigo == -1) {
                     printf("Funcionario não encontrado\n");
                     break;
                 }
                 mostrar_funcionario(funcionario_temp);
                 break;
-                
+
             default:
                 printf("Opção inválida!\n");
                 break;
@@ -87,11 +95,43 @@ void menu_funcionarios() {
 
 }
 
-
 int main() {
-    file = fopen("funcionario.txt", "a+b");
+    file = fopen("funcionario.bin", "a+b");
+    Funcionario *lista_funcionarios;
+    int tam_lista = 0, escolha;
+/*
 
-    menu_funcionarios();
+    printf("\tMENU\n");
+    printf("-------------------------------\n");
+    printf("0 - Sair\n");
+    printf("1 - Tabela IRS\n");
+    printf("2 - Tabela segurança social\n");
+    printf("3 - Gestão de funcionarios\n");
+    printf("4 - Gestão de salarios\n");
+    printf("-------------------------------\n");
+
+    escolha = obter_int(0, 4, "Opção: ");
+    switch (escolha) {
+        case 0:
+            break;
+        case 1:
+            printf("%.2lf", ler_tabela_nao_casado(736, 1));
+            break;
+        case 2:
+
+            break;
+        case 3:
+*/
+            menu_funcionarios(lista_funcionarios, tam_lista);
+/*
+            break;
+
+        case 4:
+
+            break;
+    }
+*/
+
 
     fclose(file);
     return 0;
