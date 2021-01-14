@@ -14,11 +14,16 @@
 #ifndef SALARIOS_H
 #define SALARIOS_H
 
-typedef struct{
-    int nDiasCompletos,nDiasMeios,nDiasFimSemana,nDiasFaltas;
+typedef struct {
+    int nDiasComp, nDiasMeio, nDiasFimSemana,nDiasFalta;
+    float salBase,valorBonus;
 }Salario;
 
-typedef enum {JAN, FEV, MAR, ABR, MAI, JUN,JUL, AGO, SET, OUT, NOV, DEZ } mes;
+void carregarFicheiro();
+
+float calSalBase();
+
+float calBonus(Salario *salarios);
 
 #endif /* SALARIOS_H */
 
