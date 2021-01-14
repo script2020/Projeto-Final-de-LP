@@ -16,7 +16,7 @@
 
 typedef struct {
     int nDiasComp, nDiasMeio, nDiasFimSemana,nDiasFalta;
-    float salBase,valorBonus;
+    float salBase,valorBonus,valorIliquido;
 }Salario;
 
 void carregarFicheiro();

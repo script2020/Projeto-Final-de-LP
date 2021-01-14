@@ -153,17 +153,38 @@ void carregarFicheiro(){
 
 /**
  * Esta função vai calcular o salário base do funcionário
- * @param
+ * @param salarios
  */
-float calSalBase(){
+float calSalBase(Salario *salarios){
     Salario salarios;
+    float salFimSemana,salFimSemanaValorizacao,salFimSemanaFinal,vencBase;
     
-    float salFimSemana,salFimSemanaValorizacao,salFimSemanaFinal;
+    switch(&Funcionario.cargo){
+        case "empregada_limpeza":
+            vencBase = VENC_BASE_EMP_LIMP;
+            break;
+        case "costureira":
+            vencBase = VENC_BASE_COST; 
+            break;
+        case "modelista":
+            vencBase = VENC_BASE_MOD; 
+            break;
+        case "empregada_escritorio":
+            vencBase = VENC_BASE_EMP_ESC; 
+            break;
+        case "encarregada_linha":
+            vencBase = VENC_BASE_ENC_LINHA; 
+            break;
+        case "socio_gerente":
+            vencBase = VENC_BASE_SOC_GER; 
+            break;
+    }
     
-    salFimSemana = salarios.nDiasFimSemana * (8 * 2.65);
+    
+    salFimSemana = salarios.nDiasFimSemana * (8 * vencBase);
     salFimSemanaValorizacao = salFimSemana *0.5;
     salFimSemanaFinal = salFimSemana + salFimSemanaValorizacao;
-    salarios.salBase = ((salarios.nDiasComp * (8 * 2.65)) + (salarios.nDiasMeio * (4 * 2.65)) + salFimSemanaFinal);
+    salarios.salBase = ((salarios.nDiasComp * (8 * vencBase)) + (salarios.nDiasMeio * (4 * vencBase)) + salFimSemanaFinal);
 
     return salarios.salBase;
 }
@@ -174,21 +195,33 @@ float calSalBase(){
  * @param Salario *salarios
  */
 float calBonus(Salario *salarios){
-    int anosServico;
     float bonusAnos,bonusFaltas;
     
-    anosServico = Funcionario.data_entrada - Funcionario.data_saida;
+    Funcionario.tempo_empresa = Funcionario.data_entrada - Funcionario.data_saida;
     
-    if(anosServico >= 10){
-        bonusAnos = 0.1;
+    if(Funcionario.saida == 0){
+        if(Funcionario.tempo_empresa >= 10){
+            bonusAnos = 0.1;
+        }
+
+        if(salarios.nDiasFalta == 0){
+            bonusFaltas = 0.05;
+        }
+
+        salarios.valorBonus = calSalBase(&salarios) * bonusAnos + calSalBase(&salarios) * bonusFaltas;
+
+        return salarios.valorBonus;
     }
+}
+
+/**
+ * Esta função vai calcular o valor iliquido(Base + Bonus) a receber pelo funcionário
+ * @param *salarios
+ */
+float calValorIliquido(Salario *salarios){
     
-    if(salarios.nDiasFalta == 0){
-        bonusFaltas = 0.05;
-    }
+    salarios->valorIliquido = calSalBase(&salarios) + calBonus(&salarios);
     
-    salarios.valorBonus = calSalBase() * bonusAnos + calSalBase() * bonusFaltas;
-    
-    return salarios.valorBonus;
+    return salarios->valorIliquido;
 }
 
