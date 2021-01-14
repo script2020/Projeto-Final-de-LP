@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,8 +33,6 @@ extern "C" {
 #define SUB_ALIMENTACAO 4.30
 #define MIN_FILHOS  0
 #define MAX_FILHOS  100  
-#define MIN_CARGO 0
-#define MAX_CARGO 6
 #define VENC_BASE_EMP_LIMP 2.65
 #define VENC_BASE_COST 2.90
 #define VENC_BASE_SOC_GER 3.13
@@ -87,7 +84,7 @@ extern "C" {
         Cargo cargo;
         Estado_civil estado_civil;
         Data data_entrada, data_saida, data_nascimento, tempo_empresa, data_entrada_temp, data_saida_temp;
-        float subsidio_alimentacao, vencimento_base;
+        float subsidio_alimentacao, vencimento_base, ent_empregadora_seg_social;
         tm data_atual, data_atual_temp;
 
     } Funcionario;
@@ -98,7 +95,11 @@ extern "C" {
     void mostrar_funcionario(Funcionario *funcionario);
     Bool esta_removido(Funcionario *funcionario);
     void criar_Data(Data* data, int dia, int mes, int ano);
+    void calcular_tempo_empresa_saiu(Funcionario *funcionario);
+    void time_now();
+    void calcurar_tempo_empresa(Funcionario *funcionario);
     Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, int tam_lista, FILE *file);
+    void menu_funcionario(Funcionario *lista_funcionarios, int tam_lista, FILE *file);
 
 
 #ifdef __cplusplus
@@ -106,3 +107,4 @@ extern "C" {
 #endif
 
 #endif /* FUNCIONARIO_H */
+

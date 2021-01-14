@@ -6,11 +6,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "funcionario.h"
 #include "input.h"
 #include "time.h"
-#include "irs.h"
+
+
 
 //bugs que detetei -> o dia e o mes de entrada (em mostrar_funcionario)aparece sempre 0,consequentemente o tempo de empresa dá mal
 
@@ -39,7 +41,6 @@ void time_now() {
     struct tm data_atual = *localtime(&t);
 
     printf("Data de hoje: %.2d-%.2d-%d\n", data_atual.tm_mday, data_atual.tm_mon + 1, data_atual.tm_year + 1900);
-
 }
 
 /**
@@ -48,22 +49,26 @@ void time_now() {
  * @param funcionario
  * 
  */
-void calcurar_tempo_empresa(Funcionario *funcionario) {
+void calcular_tempo_empresa_saiu(Funcionario *funcionario){
+    
     int x;
-    time_t t = time(NULL);
-    struct tm data_atual = *localtime(&t);
-
-    if (funcionario->data_entrada.mes > funcionario->data_atual.tm_mon) {
+    
+    printf("Data de saída\n");
+    funcionario->data_saida.dia = obter_int(MIN_DIA, MAX_DIA, "Dia: ");
+    funcionario->data_saida.mes = obter_int(MIN_MES, MAX_MES, "Mês: ");
+    funcionario->data_saida.ano = obter_int(MIN_ANO, MAX_ANO, "Ano: ");
+    printf("Tempo na empresa\n");
+    if (funcionario->data_entrada.mes > funcionario->data_saida.mes) {
         funcionario->data_entrada.mes = funcionario->data_entrada_temp.mes;
-        funcionario->data_atual.tm_mon + 1 = funcionario->data_atual_temp.tm_mon + 1;
+        funcionario->data_saida.mes = funcionario->data_saida_temp.mes;
 
         x = funcionario->data_entrada_temp.mes;
-        funcionario->data_entrada_temp.mes = funcionario->data_atual_temp.tm_mon;
-        funcionario->data_atual_temp.tm_mon = x;
+        funcionario->data_entrada_temp.mes = funcionario->data_saida_temp.mes;
+        funcionario->data_saida_temp.mes = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
 
     }
     if (funcionario->data_entrada.dia > funcionario->data_saida.dia) {
@@ -71,12 +76,49 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
         funcionario->data_saida.dia = funcionario->data_saida_temp.dia;
 
         x = funcionario->data_entrada_temp.dia;
+        funcionario->data_entrada_temp.dia = funcionario->data_saida_temp.dia;
+        funcionario->data_saida_temp.dia = x;
+
+        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+    }
+
+    printf("Anos: %d\n", funcionario->tempo_empresa.ano);
+    printf("Meses: %d\n", funcionario->tempo_empresa.mes);
+    printf("Dias: %d\n", funcionario->tempo_empresa.dia);
+}
+
+void calcurar_tempo_empresa(Funcionario *funcionario) {
+    int x;
+    time_t t = time(NULL);
+    struct tm data_atual = *localtime(&t);
+
+    if (funcionario->data_entrada.mes > funcionario->data_atual.tm_mon) {
+        funcionario->data_entrada.mes = funcionario->data_entrada_temp.mes;
+        funcionario->data_atual.tm_mon = funcionario->data_atual_temp.tm_mon;
+
+        x = funcionario->data_entrada_temp.mes;
+        funcionario->data_entrada_temp.mes = funcionario->data_atual_temp.tm_mon;
+        funcionario->data_atual_temp.tm_mon = x;
+
+        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada_temp.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada_temp.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada_temp.dia;
+
+    }
+
+    if (funcionario->data_entrada.dia > funcionario->data_atual.tm_mday) {
+        funcionario->data_entrada.dia = funcionario->data_entrada_temp.dia;
+        (funcionario->data_atual.tm_mday ) = (funcionario->data_atual_temp.tm_mday );
+
+        x = funcionario->data_entrada_temp.dia;
         funcionario->data_entrada_temp.dia = funcionario->data_atual_temp.tm_mday;
         funcionario->data_atual_temp.tm_mday = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada_temp.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada_temp.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada_temp.dia;
     }
     funcionario->tempo_empresa.ano = funcionario->data_atual.tm_year + 1900 - funcionario->data_entrada.ano;
     funcionario->tempo_empresa.mes = funcionario->data_atual.tm_mon + 1 - funcionario->data_entrada.mes;
@@ -96,18 +138,10 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
  */
 void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
 
-    int opcao_cargo, opcao_estado_civil, x, opcao = 0;
-
-/*
+    int opcao_cargo = 0, opcao_estado_civil = 0 , x, opcao = 0;
+    
     funcionario->eliminado = false;
-*/
-/*
-    printf("Guardar em memoria ou em ficheiro?\n");
-    printf("0 - Memória\n");
-    printf("1 - Ficheiro\n");
-    opcao = obter_int(0, 1, "Escolha: ");
-*/
-
+    
     funcionario->codigo = obter_int(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO, "Código: ");
     ler_string(funcionario->nome, TAM_NOME, "Nome: ");
     printf("----------------------------------\n");
@@ -152,40 +186,7 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
     printf("1 - Sim\n");
     funcionario->saida = obter_int(0, 1, "Escolha: ");
     if (funcionario->saida == 1) {
-        printf("Data de saída\n");
-        funcionario->data_saida.dia = obter_int(MIN_DIA, MAX_DIA, "Dia: ");
-        funcionario->data_saida.mes = obter_int(MIN_MES, MAX_MES, "Mês: ");
-        funcionario->data_saida.ano = obter_int(MIN_ANO, MAX_ANO, "Ano: ");
-        printf("Tempo na empresa\n");
-        if (funcionario->data_entrada.mes > funcionario->data_saida.mes) {
-            funcionario->data_entrada.mes = funcionario->data_entrada_temp.mes;
-            funcionario->data_saida.mes = funcionario->data_saida_temp.mes;
-
-            x = funcionario->data_entrada_temp.mes;
-            funcionario->data_entrada_temp.mes = funcionario->data_saida_temp.mes;
-            funcionario->data_saida_temp.mes = x;
-
-            funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-            funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-            funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
-
-        }
-        if (funcionario->data_entrada.dia > funcionario->data_saida.dia) {
-            funcionario->data_entrada.dia = funcionario->data_entrada_temp.dia;
-            funcionario->data_saida.dia = funcionario->data_saida_temp.dia;
-
-            x = funcionario->data_entrada_temp.dia;
-            funcionario->data_entrada_temp.dia = funcionario->data_saida_temp.dia;
-            funcionario->data_saida_temp.dia = x;
-
-            funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-            funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-            funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
-        }
-
-        printf("Anos: %d\n", funcionario->tempo_empresa.ano);
-        printf("Meses: %d\n", funcionario->tempo_empresa.mes);
-        printf("Dias: %d\n", funcionario->tempo_empresa.dia);
+        calcular_tempo_empresa_saiu(funcionario);    
     }
     time_now();
     calcurar_tempo_empresa(funcionario);
@@ -252,18 +253,24 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
     }
     funcionario->subsidio_alimentacao = printf("Subsídio de alimentação: %.2f€\n", SUB_ALIMENTACAO);
 
-/*
-    if (opcao == 0) {//guardar em memoria
-        tam_laista += 1;
 
+    printf("Guardar em memoria ou em ficheiro?\n");
+    printf("0 - Memória\n");
+    printf("1 - Ficheiro\n");
+    opcao = obter_int(0, 1, "Escolha: ");
+    if (opcao == 0) {//guardar em memoria
+        
+        tam_lista += 1;
         lista_funcionarios = (Funcionario*) realloc(lista_funcionarios, tam_lista * sizeof (Funcionario)); //guardar mais espaço
         lista_funcionarios[tam_lista - 1] = *funcionario;
     } else {
+        FILE *file = fopen("funcionario.bin", "ab");
         fseek(file, 0, SEEK_END); //escreve no fim do ficheiro
         fwrite(funcionario, sizeof (Funcionario), 1, file);
+        fclose(file);
 
     }
-*/
+
 
 }
 
@@ -357,7 +364,6 @@ void mostrar_funcionario(Funcionario *funcionario) {
         funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
     }
 
-    
     printf("Tempo na empresa\n");
     printf("Anos: %d\n", funcionario->tempo_empresa.ano);
     printf("Meses: %d\n", funcionario->tempo_empresa.mes);
@@ -452,8 +458,8 @@ void editar_funcionario(Funcionario *funcionario) {
         printf("13 - Estado civíl\n");
         printf("14 - Indicativo número de telemóvel\n");
         printf("15 - Número de telemóvel\n");
-        printf("16 -Subsídito de alimentação\n");
-        printf("17 - vencimento base\n");
+        printf("16 - Subsídito de alimentação\n");
+        printf("17 - Vencimento base\n");
         printf("-----------------------\n");
         escolha = obter_int(0, 18, "Escolha: ");
         switch (escolha) {
@@ -596,12 +602,13 @@ Bool esta_removido(Funcionario *funcionario) {
  * @return 
  */
 Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
+    
     Funcionario funcionario_temp;
     Funcionario funcionario_nao_encontrado;
     funcionario_nao_encontrado.codigo = -1;
     int leitura;
 
-    fseek(file, 0, SEEK_SET);
+    fseek(file, 0, SEEK_SET);//inicio do ficheiro
     while (1) {
         leitura = fread(&funcionario_temp, sizeof (Funcionario), 1, file);
         if (leitura == 0) {
@@ -619,4 +626,70 @@ Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, in
     return funcionario_nao_encontrado;
 }
 
+/**
+ * Esta função premite gerir os funcionários
+ * 
+ * @param lista_funcionarios
+ * @param tam_lista
+ */
+void menu_funcionario(Funcionario *lista_funcionarios,int tam_lista, FILE *file) {
+    
+    int op;
+    Funcionario *funcionario_temp;
+    int codigo_temp;
 
+    do {
+        printf("\t GESTÃO DE \n");
+        printf("\tFUNCIONÁRIOS\n");
+        printf("-----------------------\n");
+        printf("0 - Sair\n");
+        printf("1 - Inserir\n");
+        printf("2 - Editar\n");
+        printf("3 - Eliminar\n");
+        printf("4 - Mostrar\n");
+        printf("-----------------------\n");
+
+        op = obter_int(0, 4, "Opção: ");
+        switch (op) {
+            case 0:
+                break;
+            case 1:
+                criar_funcionario(funcionario_temp, lista_funcionarios, tam_lista, file);
+                break;
+            case 2:
+                codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+
+                if (funcionario_temp->codigo == -1) {
+                    printf("Funcionario não encontrado\n");
+                    break;
+                }
+                editar_funcionario(funcionario_temp);
+
+                break;
+            case 3:
+                codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+                if (funcionario_temp->codigo == -1) {
+                    printf("Funcionário não encontrado\n");
+                    break;
+                }
+                remover_funcionario(funcionario_temp);
+                break;
+            case 4:
+                codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
+                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+                if (funcionario_temp->codigo == -1) {
+                    printf("Funcionario não encontrado\n");
+                    break;
+                }
+                mostrar_funcionario(funcionario_temp);
+                break;
+
+            default:
+                printf("Opção inválida!\n");
+                break;
+        }
+    } while (op != 0);
+
+}
