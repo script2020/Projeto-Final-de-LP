@@ -17,6 +17,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include "salarios.h"
 
 #define MAX_FUNCIONARIOS  2000
 #define TAM_NOME  200   
@@ -58,15 +59,11 @@ extern "C" {
     } Cargo;
 
     typedef struct {
-        int tm_sec; //representa os segundos de 0 a 59
-        int tm_min; //representa os minutos de 0 a 59
-        int tm_hour; //representa as horas de 0 a 24
         int tm_mday; //dia do mês de 1 a 31
         int tm_mon; //representa os meses do ano de 0 a 11
         int tm_year; //representa o ano a partir de 1900
-        int tm_wday; //dia da semana de 0 (domingo) até 6 (sábado)
         int tm_yday; // dia do ano de 1 a 365
-        int tm_isdst; //indica horário de verão se for diferente de zero
+
     } tm;
 
     typedef struct {
@@ -76,22 +73,27 @@ extern "C" {
     typedef enum {
         false, true
     } Bool;
+    
+    
 
     typedef struct {
         Bool eliminado;
-        int codigo, numero_telemovel, numero_filhos, indicativo_numero_telemovel, saida;
+        int codigo, numero_telemovel, numero_filhos, indicativo_numero_telemovel, saida,lista_funcionarios;
+        int dias_trabalho_mes;
         char nome [TAM_NOME];
         Cargo cargo;
         Estado_civil estado_civil;
         Data data_entrada, data_saida, data_nascimento, tempo_empresa, data_entrada_temp, data_saida_temp;
-        float subsidio_alimentacao, vencimento_base, ent_empregadora_seg_social;
+        double subsidio_alimentacao, vencimento_base, ent_empregadora_seg_social;
         tm data_atual, data_atual_temp;
+        Salario salarios;
 
     } Funcionario;
+    
 
     void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios, int tam_lista, FILE *file);
-    void editar_funcionario(Funcionario * funcionario);
-    void remover_funcionario(Funcionario * funcionario);
+    void editar_funcionario(Funcionario *funcionario);
+    void remover_funcionario(Funcionario *funcionario);
     void mostrar_funcionario(Funcionario *funcionario);
     Bool esta_removido(Funcionario *funcionario);
     void criar_Data(Data* data, int dia, int mes, int ano);
