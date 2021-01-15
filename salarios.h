@@ -14,18 +14,22 @@
 #ifndef SALARIOS_H
 #define SALARIOS_H
 
-typedef struct {
-    int nDiasComp, nDiasMeio, nDiasFimSemana,nDiasFalta;
-    float salBruto,valorBonus,subsidioAlimentacao,valorIliquido,IRS,valorLiquido;
-}Salario;
 
-void carregarFicheiro();
+typedef struct {
+    int nDiasComp, nDiasMeio, nDiasFimSemana, nDiasFalta;
+    float salBruto, valorBonus, subsidioAlimentacao, valorIliquido, IRS, valorLiquido, SegurancaSocial;
+} Salario;
+
+int carregarFicheiro();
+
+
+float calcularSalarioBruto(Salario *salarios);
 
 float calcularSalarioBase(Salario *salarios);
 
 float calcularBonus(Salario *salarios);
 
-float calcularSubsidioAlimentacao(Salario *salarios)
+float calcularSubsidioAlimentacao(Salario *salarios);
 
 float calcularValorIliquido(Salario *salarios);
 

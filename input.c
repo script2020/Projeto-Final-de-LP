@@ -4,23 +4,20 @@
  * and open the template in the editor.
  */
 
-
 #include <stdio.h>
 #include <string.h>
 
 #define VALOR_INVALIDO "O valor inserido é inválido."
 
-void clean_input_buffer() { //ver isto!!
+void clean_input_buffer() {
     char ch;
     while ((ch = getchar()) != '\n' && ch != EOF);
 }
 
-
-
-int obter_int(int minValor, int maxValor, char *msg) {
+int obter_int(int min_valor, int max_valor, char *msg) {
     int valor;
     printf(msg);
-    while (scanf("%d", &valor) != 1 || valor < minValor || valor > maxValor) {
+    while (scanf(" %d", &valor) != 1 || valor < min_valor || valor > max_valor) {
         puts(VALOR_INVALIDO);
 
         clean_input_buffer();
@@ -33,10 +30,10 @@ int obter_int(int minValor, int maxValor, char *msg) {
     return valor;
 }
 
-float obter_float(float minValor, float maxValor, char *msg) {
+float obter_float(float min_valor, float max_valor, char *msg) {
     float valor;
     printf(msg);
-    while (scanf("%f", &valor) != 1 || valor < minValor || valor > maxValor) {
+    while (scanf(" %f", &valor) != 1 || valor < min_valor || valor > max_valor) {
         puts(VALOR_INVALIDO);
 
         clean_input_buffer();
@@ -49,10 +46,10 @@ float obter_float(float minValor, float maxValor, char *msg) {
     return valor;
 }
 
-double obter_double(double minValor, double maxValor, char *msg) {
+double obter_double(double min_valor, double max_valor, char *msg) {
     double valor;
     printf(msg);
-    while (scanf("%lf", &valor) != 1 || valor < minValor || valor > maxValor) {
+    while (scanf(" %lf", &valor) != 1 || valor < min_valor || valor > max_valor) {
         puts(VALOR_INVALIDO);
 
         clean_input_buffer();
@@ -72,21 +69,7 @@ void ler_string(char *string, unsigned int tamanho, char *msg) {
         if (string[len] == '\n') {
             string[len] = '\0';
         } else {
-
             clean_input_buffer();
-
         }
     }
 }
-
-
-
-
-char obter_char(char *msg) {
-    char valor;
-    printf(msg);
-    valor = getchar();
-    clean_input_buffer();
-    return valor;
-}
-

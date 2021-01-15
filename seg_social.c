@@ -14,6 +14,11 @@
 
 #define MAX_LINHA 2
 
+/**
+ * Esta função le o valor que o funcionario/empresa tem de pagar à seg social
+ * @param cargo
+ * @return 
+ */
 double ler_tabela_trabalhador_geral(int cargo) {
 
     double tabela_coluna_0, tabela_coluna_1;
@@ -46,6 +51,13 @@ double ler_tabela_trabalhador_geral(int cargo) {
     fclose(tabela);
 }
 
+/**
+ * Esta função premite alterar os valores das taxas da seg social
+ * 
+ * @param cargo
+ * @param novo_valor
+ * @return 
+ */
 double alterar_tabela_trabalhador_geral(int cargo, double novo_valor) {
     
     double tabela_coluna_0, tabela_coluna_1,tabela_coluna_0_anterior, tabela_coluna_1_anterior;
@@ -141,6 +153,8 @@ void menu_tabela_seg_social(){
                 ler_tabela_trabalhador_geral(cargo);
                 break;
             case 3:
+                printf("Que valor pertender alterar?\n");
+                novo_valor = obter_double(0, 100, "Valor: ");
                 alterar_tabela_trabalhador_geral(cargo,novo_valor);
                 break;
         }

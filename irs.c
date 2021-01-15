@@ -13,6 +13,14 @@
 
 #define MAX_LINHA 320
 
+/**
+ * Esta função permite ler a tabela dos funcionários não casados
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @return 
+ */
+
 double ler_tabela_nao_casado(double salario_iliquido, int num_filhos) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
@@ -20,6 +28,9 @@ double ler_tabela_nao_casado(double salario_iliquido, int num_filhos) {
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("nao_casado.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -56,10 +67,9 @@ double ler_tabela_nao_casado(double salario_iliquido, int num_filhos) {
 
         teste = fgets(linha, MAX_LINHA, tabela);
         sscanf(linha, "%lf;%lf;%lf;%lf;%lf;%lf;%lf", &tabela_coluna_0,
-                &tabela_coluna_1, &tabela_coluna_2, &tabela_coluna_3, &tabela_coluna_4, &tabela_coluna_5, &tabela_coluna_6);
+               &tabela_coluna_1, &tabela_coluna_2, &tabela_coluna_3, &tabela_coluna_4, &tabela_coluna_5, &tabela_coluna_6);
     }
-
-    switch (num_filhos) {//ler a linha de superiro a ...
+    switch (num_filhos){
         case 0:
             return tabela_coluna_1_anterior;
         case 1:
@@ -77,14 +87,29 @@ double ler_tabela_nao_casado(double salario_iliquido, int num_filhos) {
     fclose(tabela);
 }
 
-double alterar_tabela_nao_casado(double salario_iliquido, int num_filhos, double novo_valor) {
+/**
+ * Esta função permite alterar a tabela dos trabalhadores não casados 
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @param novo_valor
+ * @return 
+ */
+
+void alterar_tabela_nao_casado(double salario_iliquido, int num_filhos, double novo_valor) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
     double tabela_coluna_0, tabela_coluna_1, tabela_coluna_2, tabela_coluna_3,
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("nao_casado.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     FILE *nova_tabela = fopen("novo_nao_casado.txt", "w");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -161,7 +186,13 @@ double alterar_tabela_nao_casado(double salario_iliquido, int num_filhos, double
     fclose(nova_tabela);
 
     tabela = fopen("nao_casado.txt", "w");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     nova_tabela = fopen("temp_nao_casado.txt", "r");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     teste = fgets(linha, MAX_LINHA, nova_tabela);
     sscanf(linha, "%lf;%lf;%lf;%lf;%lf;%lf;%lf", &tabela_coluna_0,
@@ -187,13 +218,24 @@ double alterar_tabela_nao_casado(double salario_iliquido, int num_filhos, double
     fclose(nova_tabela);
 }
 
-double ler_tabela_casado_unico_titual(double salario_iliquido, int num_filhos) {
+/**
+ * Esta função permite ler a tabela dos funcionários casados com um único titular
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @return 
+ */
+
+double ler_tabela_casado_unico_titular(double salario_iliquido, int num_filhos) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
     double tabela_coluna_0, tabela_coluna_1, tabela_coluna_2, tabela_coluna_3,
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("casado_unico_titual.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -251,14 +293,29 @@ double ler_tabela_casado_unico_titual(double salario_iliquido, int num_filhos) {
     fclose(tabela);
 }
 
-double alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filhos, double novo_valor) {
+/**
+ * Esta função permite alterar a tabela dos funcionários casados com um único titular
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @param novo_valor
+ * @return 
+ */
+
+void alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filhos, double novo_valor) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
     double tabela_coluna_0, tabela_coluna_1, tabela_coluna_2, tabela_coluna_3,
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("casado_unico_titual.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     FILE *nova_tabela = fopen("novo_casado_unico_titual.txt", "w");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -335,7 +392,13 @@ double alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filh
     fclose(nova_tabela);
 
     tabela = fopen("casado_unico_titual.txt", "w");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     nova_tabela = fopen("temp_casado_unico_titual.txt", "r");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     teste = fgets(linha, MAX_LINHA, nova_tabela);
     sscanf(linha, "%lf;%lf;%lf;%lf;%lf;%lf;%lf", &tabela_coluna_0,
@@ -361,6 +424,14 @@ double alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filh
     fclose(nova_tabela);
 }
 
+/**
+ * Esta função permite alterar a tabela dos funcionários casados com um único titular
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @return 
+ */
+
 double ler_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
@@ -368,6 +439,9 @@ double ler_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos)
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("casado_dois_titulares.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -425,14 +499,29 @@ double ler_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos)
     fclose(tabela);
 }
 
-double alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos, double novo_valor) {
+/**
+ * Esta função permite alterar a tabela dos funcionários casados com dois titulares
+ * 
+ * @param salario_iliquido
+ * @param num_filhos
+ * @param novo_valor
+ * @return 
+ */
+
+void alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos, double novo_valor) {
     double tabela_coluna_0_anterior, tabela_coluna_1_anterior, tabela_coluna_2_anterior, tabela_coluna_3_anterior,
             tabela_coluna_4_anterior, tabela_coluna_5_anterior, tabela_coluna_6_anterior;
     double tabela_coluna_0, tabela_coluna_1, tabela_coluna_2, tabela_coluna_3,
             tabela_coluna_4, tabela_coluna_5, tabela_coluna_6;
 
     FILE *tabela = fopen("casado_dois_titulares.txt", "r");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     FILE *nova_tabela = fopen("novo_casado_dois_titulares.txt", "w");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     char linha[MAX_LINHA + 1];
     char *teste;
@@ -509,7 +598,13 @@ double alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_fil
     fclose(nova_tabela);
 
     tabela = fopen("casado_dois_titulares.txt", "w");
+    if (tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
     nova_tabela = fopen("temp_casado_dois_titulares.txt", "r");
+    if (nova_tabela == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     teste = fgets(linha, MAX_LINHA, nova_tabela);
     sscanf(linha, "%lf;%lf;%lf;%lf;%lf;%lf;%lf", &tabela_coluna_0,
@@ -535,6 +630,12 @@ double alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_fil
     fclose(nova_tabela);
 }
 
+/**
+ * Esta função permite ver o menu ta tabela do IRS
+ * 
+ * 
+ */
+
 void menu_tabela_irs() {
 
     int op, num_filhos;
@@ -556,7 +657,7 @@ void menu_tabela_irs() {
         printf("5 - Ler tabela\n");
         printf("6 - Editar tabela\n");
         printf("-----------------------\n");
-        
+
         op = obter_int(0, 6, "Opção: ");
         switch (op) {
             case 0:

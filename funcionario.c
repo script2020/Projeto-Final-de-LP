@@ -14,7 +14,7 @@
 
 
 
-//bugs que detetei -> o dia e o mes de entrada (em mostrar_funcionario)aparece sempre 0,consequentemente o tempo de empresa dá mal
+//bugs que detetei ->tempo de empresa dá mal
 
 /**
  * Esta função cria uma data
@@ -49,10 +49,10 @@ void time_now() {
  * @param funcionario
  * 
  */
-void calcular_tempo_empresa_saiu(Funcionario *funcionario){
-    
+void calcular_tempo_empresa_saiu(Funcionario *funcionario) {
+
     int x;
-    
+
     printf("Data de saída\n");
     funcionario->data_saida.dia = obter_int(MIN_DIA, MAX_DIA, "Dia: ");
     funcionario->data_saida.mes = obter_int(MIN_MES, MAX_MES, "Mês: ");
@@ -66,9 +66,9 @@ void calcular_tempo_empresa_saiu(Funcionario *funcionario){
         funcionario->data_entrada_temp.mes = funcionario->data_saida_temp.mes;
         funcionario->data_saida_temp.mes = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_saida_temp.ano - funcionario->data_entrada_temp.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_saida_temp.mes - funcionario->data_entrada_temp.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_saida_temp.dia - funcionario->data_entrada_temp.dia;
 
     }
     if (funcionario->data_entrada.dia > funcionario->data_saida.dia) {
@@ -79,11 +79,14 @@ void calcular_tempo_empresa_saiu(Funcionario *funcionario){
         funcionario->data_entrada_temp.dia = funcionario->data_saida_temp.dia;
         funcionario->data_saida_temp.dia = x;
 
-        funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
-        funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
-        funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+        funcionario->tempo_empresa.ano = funcionario->data_saida_temp.ano - funcionario->data_entrada_temp.ano;
+        funcionario->tempo_empresa.mes = funcionario->data_saida_temp.mes - funcionario->data_entrada_temp.mes;
+        funcionario->tempo_empresa.dia = funcionario->data_saida_temp.dia - funcionario->data_entrada_temp.dia;
     }
-
+    funcionario->tempo_empresa.ano = funcionario->data_saida.ano - funcionario->data_entrada.ano;
+    funcionario->tempo_empresa.mes = funcionario->data_saida.mes - funcionario->data_entrada.mes;
+    funcionario->tempo_empresa.dia = funcionario->data_saida.dia - funcionario->data_entrada.dia;
+    
     printf("Anos: %d\n", funcionario->tempo_empresa.ano);
     printf("Meses: %d\n", funcionario->tempo_empresa.mes);
     printf("Dias: %d\n", funcionario->tempo_empresa.dia);
@@ -110,7 +113,7 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
 
     if (funcionario->data_entrada.dia > funcionario->data_atual.tm_mday) {
         funcionario->data_entrada.dia = funcionario->data_entrada_temp.dia;
-        (funcionario->data_atual.tm_mday ) = (funcionario->data_atual_temp.tm_mday );
+        (funcionario->data_atual.tm_mday) = (funcionario->data_atual_temp.tm_mday);
 
         x = funcionario->data_entrada_temp.dia;
         funcionario->data_entrada_temp.dia = funcionario->data_atual_temp.tm_mday;
@@ -119,11 +122,12 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
         funcionario->tempo_empresa.ano = funcionario->data_atual_temp.tm_year + 1900 - funcionario->data_entrada_temp.ano;
         funcionario->tempo_empresa.mes = funcionario->data_atual_temp.tm_mon + 1 - funcionario->data_entrada_temp.mes;
         funcionario->tempo_empresa.dia = funcionario->data_atual_temp.tm_mday - funcionario->data_entrada_temp.dia;
-    }
+    }else{
     funcionario->tempo_empresa.ano = funcionario->data_atual.tm_year + 1900 - funcionario->data_entrada.ano;
     funcionario->tempo_empresa.mes = funcionario->data_atual.tm_mon + 1 - funcionario->data_entrada.mes;
     funcionario->tempo_empresa.dia = funcionario->data_atual.tm_mday - funcionario->data_entrada.dia;
-    
+    }
+
     printf("Anos empresa: %d\n", funcionario->tempo_empresa.ano);
     printf("Meses empresa: %d\n", funcionario->tempo_empresa.mes);
     printf("Dias empresa: %d\n", funcionario->tempo_empresa.dia);
@@ -138,12 +142,12 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
  */
 void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
 
-    int opcao_cargo = 0, opcao_estado_civil = 0 , x, opcao = 0;
-    
-    funcionario->eliminado = false;
-    
+    int opcao_cargo = 0, opcao_estado_civil = 0, x, opcao = 0;
+
+
     funcionario->codigo = obter_int(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO, "Código: ");
     ler_string(funcionario->nome, TAM_NOME, "Nome: ");
+
     printf("----------------------------------\n");
     printf("OPÇÕES DE CARGO:\n");
     printf("0 - Empregado(a) de limpeza\n");
@@ -174,7 +178,7 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
             funcionario->cargo = socio_gerente;
             break;
         default:
-            printf("Opção inválida.");
+            printf("Opção inválida.\n");
 
     }
     printf("Data de entrada\n");
@@ -186,10 +190,11 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
     printf("1 - Sim\n");
     funcionario->saida = obter_int(0, 1, "Escolha: ");
     if (funcionario->saida == 1) {
-        calcular_tempo_empresa_saiu(funcionario);    
-    }
+        calcular_tempo_empresa_saiu(funcionario);
+    }else{
     time_now();
     calcurar_tempo_empresa(funcionario);
+    }
     printf("\nData de nascimento\n");
     funcionario->data_nascimento.dia = obter_int(MIN_DIA, MAX_DIA, "Dia: ");
     funcionario->data_nascimento.mes = obter_int(MIN_MES, MAX_MES, "Mês: ");
@@ -230,28 +235,28 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
 
     switch (funcionario->cargo) {
         case 0:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_LIMP);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_LIMP);
             break;
         case 1:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_COST);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_COST);
             break;
         case 2:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_MOD);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_MOD);
             break;
         case 3:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_ESC);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_ESC);
             break;
         case 4:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_ENC_LINHA);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_ENC_LINHA);
             break;
         case 5:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_SOC_GER);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_SOC_GER);
             break;
         default:
             printf("Opção inválida.\n");
 
     }
-    funcionario->subsidio_alimentacao = printf("Subsídio de alimentação: %.2f€\n", SUB_ALIMENTACAO);
+    funcionario->subsidio_alimentacao = printf("Subsídio de alimentação: %.2lf€\n", SUB_ALIMENTACAO);
 
 
     printf("Guardar em memoria ou em ficheiro?\n");
@@ -265,13 +270,13 @@ void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios
         lista_funcionarios[tam_lista - 1] = *funcionario;
     } else {
         FILE *file = fopen("funcionario.bin", "ab");
+        if (file == NULL) {
+            exit(EXIT_FAILURE);
+        }
         fseek(file, 0, SEEK_END); //escreve no fim do ficheiro
         fwrite(funcionario, sizeof (Funcionario), 1, file);
         fclose(file);
-
     }
-
-
 }
 
 /**
@@ -390,26 +395,26 @@ void mostrar_funcionario(Funcionario *funcionario) {
     printf("Número de filhos: %d\n", funcionario->numero_filhos);
     printf("Indicativo numero de telemovel: %d\n", funcionario->indicativo_numero_telemovel);
     printf("Número de telemóvel: %d\n", funcionario->numero_telemovel);
-    printf("Subsídio de alimentação: %.2f\n", funcionario->subsidio_alimentacao);
+    printf("Subsídio de alimentação: %.2lf€\n", funcionario->subsidio_alimentacao);
 
     switch (funcionario->cargo) {
         case 0:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_LIMP);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_LIMP);
             break;
         case 1:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_COST);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_COST);
             break;
         case 2:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_MOD);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_MOD);
             break;
         case 3:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_ESC);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_ESC);
             break;
         case 4:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_ENC_LINHA);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_ENC_LINHA);
             break;
         case 5:
-            printf("Vencimento Base: %.2f€\n", VENC_BASE_SOC_GER);
+            printf("Vencimento Base: %.2lf€\n", VENC_BASE_SOC_GER);
             break;
         default:
             printf("Opção inválida.\n");
@@ -427,6 +432,19 @@ void mostrar_funcionario(Funcionario *funcionario) {
  */
 void remover_funcionario(Funcionario *funcionario) {
     funcionario->eliminado = true;
+    
+}
+
+/**
+ * Esta função indica se o funcionario foi removido
+ * 
+ * @param funcionario
+ * @return 
+ */
+Bool esta_removido(Funcionario *funcionario) {
+
+    return funcionario->eliminado;
+
 }
 
 /**
@@ -554,22 +572,22 @@ void editar_funcionario(Funcionario *funcionario) {
             case 17:
                 switch (funcionario->cargo) {
                     case 0:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_LIMP);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_LIMP);
                         break;
                     case 1:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_COST);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_COST);
                         break;
                     case 2:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_MOD);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_MOD);
                         break;
                     case 3:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_EMP_ESC);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_EMP_ESC);
                         break;
                     case 4:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_ENC_LINHA);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_ENC_LINHA);
                         break;
                     case 5:
-                        printf("Vencimento Base: %.2f€\n", VENC_BASE_SOC_GER);
+                        printf("Vencimento Base: %.2lf€\n", VENC_BASE_SOC_GER);
                         break;
                     default:
                         printf("Opção inválida.\n");
@@ -583,16 +601,7 @@ void editar_funcionario(Funcionario *funcionario) {
     }
 }
 
-/**
- * Esta função indica se o funcionario foi removido
- * 
- * @param funcionario
- * @return 
- */
-Bool esta_removido(Funcionario *funcionario) {
 
-    return funcionario->eliminado;
-}
 
 /**
  * esta função procura o funcionario
@@ -602,13 +611,13 @@ Bool esta_removido(Funcionario *funcionario) {
  * @return 
  */
 Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
-    
+
     Funcionario funcionario_temp;
     Funcionario funcionario_nao_encontrado;
     funcionario_nao_encontrado.codigo = -1;
     int leitura;
 
-    fseek(file, 0, SEEK_SET);//inicio do ficheiro
+    fseek(file, 0, SEEK_SET); //inicio do ficheiro
     while (1) {
         leitura = fread(&funcionario_temp, sizeof (Funcionario), 1, file);
         if (leitura == 0) {
@@ -632,10 +641,11 @@ Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, in
  * @param lista_funcionarios
  * @param tam_lista
  */
-void menu_funcionario(Funcionario *lista_funcionarios,int tam_lista, FILE *file) {
-    
+
+void menu_funcionario(Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
+
     int op;
-    Funcionario *funcionario_temp;
+    Funcionario funcionario_temp;
     int codigo_temp;
 
     do {
@@ -654,37 +664,45 @@ void menu_funcionario(Funcionario *lista_funcionarios,int tam_lista, FILE *file)
             case 0:
                 break;
             case 1:
-                criar_funcionario(funcionario_temp, lista_funcionarios, tam_lista, file);
+
+                funcionario_temp.eliminado = false;
+
+                criar_funcionario(&funcionario_temp, lista_funcionarios, tam_lista, file);
+
                 break;
+
             case 2:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+                funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
 
-                if (funcionario_temp->codigo == -1) {
+                if (funcionario_temp.codigo == -1) {
                     printf("Funcionario não encontrado\n");
                     break;
                 }
-                editar_funcionario(funcionario_temp);
+                editar_funcionario(&funcionario_temp);
 
                 break;
+
             case 3:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
-                if (funcionario_temp->codigo == -1) {
+                funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+                if (funcionario_temp.codigo == -1) {
                     printf("Funcionário não encontrado\n");
                     break;
                 }
-                remover_funcionario(funcionario_temp);
+                remover_funcionario(&funcionario_temp);
                 break;
+
             case 4:
                 codigo_temp = obter_int(0, MAX_NUM_FUNCIONARIO, "Código: ");
-                *funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
-                if (funcionario_temp->codigo == -1) {
+                funcionario_temp = procurar_funcionario(codigo_temp, lista_funcionarios, tam_lista, file);
+                if (funcionario_temp.codigo == -1) {
                     printf("Funcionario não encontrado\n");
                     break;
                 }
-                mostrar_funcionario(funcionario_temp);
+                mostrar_funcionario(&funcionario_temp);
                 break;
+
 
             default:
                 printf("Opção inválida!\n");

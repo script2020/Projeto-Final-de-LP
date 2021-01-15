@@ -19,11 +19,11 @@ extern "C" {
 #endif
   
     double ler_tabela_nao_casado(double salario_iliquido, int num_filhos);
-    double alterar_tabela_nao_casado(double salario_iliquido, int num_filhos, double novo_valor);
+    void alterar_tabela_nao_casado(double salario_iliquido, int num_filhos,double novo_valor);
     double ler_tabela_casado_unico_titular(double salario_iliquido, int num_filhos);
-    double alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filhos, double novo_valor);
+    void alterar_tabela_casado_unico_titular(double salario_iliquido, int num_filhos, double novo_valor);
     double ler_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos);
-    double alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos, double novo_valor);
+    void alterar_tabela_casado_dois_titulares(double salario_iliquido, int num_filhos, double novo_valor);
     void menu_tabela_irs();
 
 #ifdef __cplusplus
