@@ -23,9 +23,6 @@
 #include "listagem.h"
 #include "salarios.h"
 
-
-//APRENDER A FAZER DEBUG
-
 int main() {
 
     FILE *file;
