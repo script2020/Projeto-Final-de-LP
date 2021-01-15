@@ -15,32 +15,26 @@
 #include "seg_social.h"
 
 
-
 /**
  * Esta função vai ler o ficheiro com as informações para processar o salário
  * @param ficheiro
  */
 int carregarFicheiro() {
-    
-    
     Salario salarios;
+    Salarios salario;
     Funcionario *funcionario;
     
-    
-    int mes;
-    
-    mes = obter_int(1, 12, "Indique o mês que prentende processar (1 a 12): ");
+    salario.mes = obter_int(1, 12, "Indique o mês que prentende processar (1 a 12): ");
 
-    switch (mes) {
+    switch (salario.mes) {
         case 1:
             
         {
-            FILE *fp = fopen("janeiro.txt", "r");
+            FILE *fp = fopen("janeiroRelatorio.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -51,12 +45,11 @@ int carregarFicheiro() {
         case 2:
            
         {
-            FILE *fp = fopen("janeiro.txt", "r");
+            FILE *fp = fopen("fevereiro.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -65,12 +58,11 @@ int carregarFicheiro() {
             break;
         case 3:
         {
-            FILE *fp = fopen("fevereiro.txt", "r");
+            FILE *fp = fopen("marco.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -79,12 +71,11 @@ int carregarFicheiro() {
             break;
         case 4:
         {
-            FILE *fp = fopen("marco.txt", "r");
+            FILE *fp = fopen("abril.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -93,12 +84,11 @@ int carregarFicheiro() {
             break;
         case 5:
         {
-            FILE *fp = fopen("abril.txt", "r");
+            FILE *fp = fopen("maio.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -108,12 +98,11 @@ int carregarFicheiro() {
         case 6:
         {
             
-            FILE *fp = fopen("maio.txt", "r");
+            FILE *fp = fopen("junho.txt", "r");
             if (fp == NULL) {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -127,7 +116,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -141,7 +129,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -154,7 +141,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -168,7 +154,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -183,7 +168,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -198,7 +182,6 @@ int carregarFicheiro() {
                 exit(EXIT_FAILURE);
             }
 
-            //só está a ler uma linha
             fscanf(fp, "%d %d %d %d %d", &funcionario->codigo, &salarios.nDiasComp,
                     &salarios.nDiasMeio, &salarios.nDiasFimSemana, &salarios.nDiasFalta);
             fclose(fp);
@@ -219,7 +202,7 @@ int carregarFicheiro() {
  * Esta função vai calcular o salário base do funcionário
  * @param salarios
  */
-float calcularSalarioBruto(Salario *salarios) {
+float calcularSalarioBruto(Salario *salarios,Salarios *salario) {
     
     Funcionario *funcionario;
     float salFimSemana, salFimSemanaValorizacao, salFimSemanaFinal, vencBase;
@@ -255,9 +238,7 @@ float calcularSalarioBruto(Salario *salarios) {
         salFimSemana = salarios->nDiasFimSemana * (8 * vencBase);
         salFimSemanaValorizacao = salFimSemana * 0.5;
         salFimSemanaFinal = salFimSemana + salFimSemanaValorizacao;
-        salarios->salBruto = ((salarios->nDiasComp * (8 * vencBase)) + (salarios->nDiasMeio * (4 * vencBase)) + salFimSemanaFinal);
-
-        return salarios->salBruto;
+        return salario->salarios[salario->mes].salBruto = ((salarios->nDiasComp * (8 * vencBase)) + (salarios->nDiasMeio * (4 * vencBase)) + salFimSemanaFinal);
     }
 }
 
@@ -265,8 +246,8 @@ float calcularSalarioBruto(Salario *salarios) {
  * Esta função vai calcular o subsídio de alimentação de cada funcionário
  * @param salarios
  */
-float calcularSubsidioAlimentacao(Salario *salarios) {
-    return salarios->subsidioAlimentacao = (salarios->nDiasComp * SUB_ALIMENTACAO + salarios->nDiasFimSemana * SUB_ALIMENTACAO);
+float calcularSubsidioAlimentacao(Salario *salarios,Salarios *salario) {
+    return salario->salarios[salario->mes].subsidioAlimentacao = (salarios->nDiasComp * SUB_ALIMENTACAO + salarios->nDiasFimSemana * SUB_ALIMENTACAO);
 }
 
 /**
@@ -274,7 +255,7 @@ float calcularSubsidioAlimentacao(Salario *salarios) {
  * na empresa, e no número de faltas
  * @param Salario *salarios
  */
-float calcularBonus(Salario *salarios) {
+float calcularBonus(Salario *salarios,Salarios *salario) {
     float bonusAnos, bonusFaltas;
     Funcionario *funcionario;
     
@@ -290,7 +271,7 @@ float calcularBonus(Salario *salarios) {
             salarios->valorBonus = calcularSalarioBruto(salarios) * bonusFaltas;
         }
 
-        return salarios->valorBonus;
+        return salario->salarios[salario->mes].valorBonus;
     }
 }
 
@@ -298,18 +279,17 @@ float calcularBonus(Salario *salarios) {
  * Esta função vai calcular o valor iliquido(Base + Bonus) a receber pelo funcionário
  * @param *salarios
  */
-float calcularValorIliquido(Salario *salarios) {
+float calcularValorIliquido(Salario *salarios,Salarios *salario) {
 
-    salarios->valorIliquido = calcularSalarioBruto(salarios) + calcularBonus(salarios);
-
-    return salarios->valorIliquido;
+    return salario->salarios[salario->mes].valorIliquido = calcularSalarioBruto(salarios) + calcularBonus(salarios);
+    
 }
 
 /**
  * Esta função vai calcular o valor liquido a receber pelo funcionário
  * @param *salarios
  */
-float calcularIRS(Salario *salarios) {
+float calcularIRS(Salario *salarios,Salarios *salario) {
     int titular;
     Funcionario *funcionario;
 
@@ -328,21 +308,220 @@ float calcularIRS(Salario *salarios) {
         ler_tabela_nao_casado(calcularValorIliquido(salarios), funcionario->numero_filhos);
     }
 
-    return salarios->IRS = calcularSalarioBruto(salarios);
+    return salario->salarios[salario->mes].IRS = calcularSalarioBruto(salarios);
 }
 /**
  * Esta função vai calcular o valor liquido a receber pelo funcionário
  * @param *salarios
  */
 
-float calcularSegurancaSocial(Salario *salarios) {
-    
+float calcularSegurancaSocial(Salario *salarios,Salarios *salario) {
     Funcionario *funcionario;
-    return salarios->SegurancaSocial = calcularSalarioBruto(&salarios) * ler_tabela_trabalhador_geral(funcionario->cargo);
+    return salario->salarios[salario->mes].SegurancaSocial = calcularSalarioBruto(&salarios) * ler_tabela_trabalhador_geral(funcionario->cargo);
 }
-float calcularValorLiquido(Salario *salarios) {
+float calcularValorLiquido(Salario *salarios,Salarios *salario, Funcionario *funcionario) {
+        
+    salario->salarios[salario->mes].valorLiquido = salarios->valorLiquido = calcularValorIliquido(salarios) + calcularIRS(salarios) + calcularSegurancaSocial(salarios);
+   
+     switch (salario.mes) {
+        case 1:
+            
+        {
+            FILE *fp = fopen("janeiroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+        }
+            break;
+            
+        case 2:
+           
+        {
+            FILE *fp = fopen("fevereiroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+       
+        }
+            break;
+        case 3:
+        {
+           FILE *fp = fopen("marcoRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+       
+        }
+            break;
+        case 4:
+        {
+            FILE *fp = fopen("abrilRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+           
+        }
+            break;
+        case 5:
+        {
+           FILE *fp = fopen("maioRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+            
+        }
+            break;
+        case 6:
+        {
+            
+           FILE *fp = fopen("junhoRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+            
+        }
+            break;
+        case 7:
+        {
+           FILE *fp = fopen("julhoRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+           
+        }
+            break;
+        case 8:
+        {
+            FILE *fp = fopen("agostoRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+        }
+            break;
+        case 9:
+        {
+            FILE *fp = fopen("setembroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+          ;
+        }
+            break;
+        case 10:
+        {
+            FILE *fp = fopen("outubroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
 
-    return salarios->valorLiquido = calcularValorIliquido(salarios) + calcularIRS(salarios) + calcularSegurancaSocial(salarios);
+           
+        }
+            break;
+        case 11:
+        {
+            FILE *fp = fopen("novembroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+
+        }
+            break;
+        case 12:
+        {
+            FILE *fp = fopen("dezembroRelatorio.txt", "a+");
+            if (fp == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            fprintf(fp, "%s %d \n","Funcinario nº: ",funcionario->codigo);
+            fprintf(fp, "%s %f € \n","Salario Bruto: ",calcularSalarioBruto());
+            fprintf(fp, "%s %f € \n","Susbisdio de alimentacao: ",calcularSubsidioAlimentacao());
+            fprintf(fp, "%s %f € \n","Bonus: ",calcularBonus());
+            fprintf(fp, "%s %f € \n","IRS: ",calcularIRS());
+            fprintf(fp, "%s %f € \n","Segurança Social:",calcularSegurancaSocial());
+            fclose(fp);
+        }
+            break;
+        default:
+            puts("Opção Inválida");
+            break;
+    }
 }
 
 
