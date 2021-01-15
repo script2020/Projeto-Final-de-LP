@@ -12,10 +12,6 @@
 #include "input.h"
 #include "time.h"
 
-
-
-//bugs que detetei ->tempo de empresa dá mal
-
 /**
  * Esta função cria uma data
  * 
@@ -44,7 +40,7 @@ void time_now() {
 }
 
 /**
- * Esta função calcula o tempo na empresa do funcionario
+ * Esta função calcula o tempo na empresa do funcionario,caso ele nao tenha saido da empresa
  * 
  * @param funcionario
  * 
@@ -91,7 +87,11 @@ void calcular_tempo_empresa_saiu(Funcionario *funcionario) {
     printf("Meses: %d\n", funcionario->tempo_empresa.mes);
     printf("Dias: %d\n", funcionario->tempo_empresa.dia);
 }
-
+/**
+ * Esta função calcula o tempo na empresa,caso ela ainda esteja na empresa
+ * 
+ * @param funcionario
+ */
 void calcurar_tempo_empresa(Funcionario *funcionario) {
     int x;
     time_t t = time(NULL);
@@ -138,7 +138,9 @@ void calcurar_tempo_empresa(Funcionario *funcionario) {
  * Esta função cria um funcionáro
  * 
  * @param funcionario
- * 
+ * @param lista_funcionarios
+ * @param tam_lista
+ * @param file
  */
 void criar_funcionario(Funcionario *funcionario, Funcionario *lista_funcionarios, int tam_lista, FILE *file) {
 
@@ -604,9 +606,11 @@ void editar_funcionario(Funcionario *funcionario) {
 
 
 /**
- * esta função procura o funcionario
+ * Esta função procura o funcionario
  * 
  * @param codigo
+ * @param lista_funcionarios
+ * @param tam_lista
  * @param file
  * @return 
  */
@@ -640,6 +644,7 @@ Funcionario procurar_funcionario(int codigo, Funcionario *lista_funcionarios, in
  * 
  * @param lista_funcionarios
  * @param tam_lista
+ * @param file
  */
 
 void menu_funcionario(Funcionario *lista_funcionarios, int tam_lista, FILE *file) {

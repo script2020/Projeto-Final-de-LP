@@ -18,7 +18,8 @@
 extern "C" {
 #endif
 
-    void funcionario_mais_bonus(Funcionario* funcionario_temp, Funcionario* lista_funcionarios);
+    void funcionario_listar_bonus(Funcionario* funcionario_temp, Funcionario* lista_funcionarios);
+    void funcionario_mais_anos(Funcionario *funcionario_temp, Funcionario *lista_funcionarios);
     
     void menu_listagem();
 

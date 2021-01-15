@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 #include <stdio.h>
 
 #include "input.h"
@@ -15,30 +13,8 @@
 
 
 
-void funcionario_dias_horas_trabalho_mes(Funcionario* funcionario_temp, Funcionario *lista_funcionarios){
-    
-    int tam_lista,dias_completos_totais,dias_semi_completos_totais;
-    FILE *file;
-    int horas_mes, dias_trabalho_mes;
-    Salario *salario;
-    
-    funcionario_temp->codigo = obter_int(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO,
-                "Código do funcionário: ");
-    procurar_funcionario(funcionario_temp->codigo,lista_funcionarios,tam_lista,file);
-    if (funcionario_temp.codigo == -1) {
-        printf("Funcionário não encontrado\n");
-    } 
-    salario->nDiasComp = dias_completos_totais;
-    
-    
-    printf("O funcionário trabalhou ");
-    printf("%d dias completos este mês", dias_completos_totais);
-    
-    
-}
 
-
-void funcionario_mais_bonus(Funcionario *funcionario_temp, Funcionario *lista_funcionarios){
+void funcionario_listar_bonus(Funcionario *funcionario_temp, Funcionario *lista_funcionarios){
     Salario *salario;
     int tam_lista,valor_temp;
     FILE *file;
@@ -52,7 +28,7 @@ void funcionario_mais_bonus(Funcionario *funcionario_temp, Funcionario *lista_fu
    
     for (int i = 0; i < tam_lista; ++i) {
         for (int j = i + 1; j < tam_lista; ++j) {
-            if (lista_funcionarios->salarios.valorBonus[i] < lista_funcionarios->salarios.valorBonus[j]) {
+            if (lista_funcionarios[i] < lista_funcionarios->salarios.valorBonus[j]) {
                 valor_temp = lista_funcionarios->salarios.valorBonus[i];
                 lista_funcionarios->salarios.valorBonus[i] = lista_funcionarios->salarios.valorBonus[j];
                 lista_funcionarios->salarios.valorBonus[j] = valor_temp;
@@ -62,15 +38,34 @@ void funcionario_mais_bonus(Funcionario *funcionario_temp, Funcionario *lista_fu
     for (int i = 0; i < tam_lista; ++i) {
         printf("%d\n", lista_funcionarios->salarios.valorBonus[i]);
     }
-
 }
-    
-    
 
-
-void funcionario_horas_extras(Funcionario* funcionario){
+void funcionario_mais_anos(Funcionario *funcionario_temp, Funcionario *lista_funcionarios){
     
+    int tam_lista,valor_temp,  maior = 0;
+    FILE *file;
+    funcionario_temp->codigo = obter_int(MIN_NUM_FUNCIONARIO, MAX_NUM_FUNCIONARIO,
+            "Código do funcionário: ");
+    procurar_funcionario(funcionario_temp->codigo, lista_funcionarios, tam_lista, file);
+    if (funcionario_temp->codigo == -1) {
+        printf("Funcionário não encontrado\n");
+    }
+
+    for (int i = 0; i < tam_lista; ++i) {
+        for (int j = i + 1; j < tam_lista; ++j) {
+            if (lista_funcionarios[i] < lista_funcionarios->tempo_empresa.ano[j]) {
+                valor_temp = lista_funcionarios->tempo_empresa.ano[i];
+                lista_funcionarios->tempo_empresa.ano[i] = lista_funcionarios->tempo_empresa.ano[j];
+                lista_funcionarios->tempo_empresa.ano[j] = valor_temp;
+            }
+        }
+    }
+    for (int i = 0; i < tam_lista; ++i) {
+        printf("Nome: %s\nAnos de trabalho: %d\n",lista_funcionarios->nome[i] 
+                lista_funcionarios->tempo_empresa.ano[i]);
+    }
 }
+
 
 void menu_listagem(){
     
@@ -79,19 +74,22 @@ void menu_listagem(){
     Funcionario *lista_funcionarios;
     
     do{
-        printf("-----------\n");
+        printf("MENU LISTAGENS\n");
+        printf("-----------------------\n");
         printf("0 - Sair\n");
         printf("1 - Listar bónus\n");
-        printf("2 - ");
-        
+        printf("2 - Funcionário que trabalhou mais anos\n");
+        printf("-----------------------\n");
         op = obter_int(0, 5,"Opção");
         
         switch(op){
             case 0:
                 break;
             case 1:
-            funcionario_mais_bonus(&funcionario_temp ,lista_funcionarios);
-                    
+            funcionario_listar_bonus(&funcionario_temp ,lista_funcionarios);
+            case 2:
+            funcionario_mais_anos(&funcionario_temp, lista_funcionarios);
+            
         }
         
         

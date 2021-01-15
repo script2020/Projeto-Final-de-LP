@@ -23,6 +23,7 @@
 #include "listagem.h"
 #include "salarios.h"
 
+
 int main() {
 
     FILE *file;

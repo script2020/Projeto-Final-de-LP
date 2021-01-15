@@ -78,7 +78,7 @@ extern "C" {
 
     typedef struct {
         Bool eliminado;
-        int codigo, numero_telemovel, numero_filhos, indicativo_numero_telemovel, saida,lista_funcionarios;
+        int codigo, numero_telemovel, numero_filhos, indicativo_numero_telemovel, saida;
         int dias_trabalho_mes;
         char nome [TAM_NOME];
         Cargo cargo;
