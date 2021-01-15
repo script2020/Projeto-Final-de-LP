@@ -16,7 +16,7 @@
 
 typedef struct {
     int nDiasComp, nDiasMeio, nDiasFimSemana,nDiasFalta;
-    float salBase,valorBonus,subsidioAlimentacao,valorIliquido,valorLiquido;
+    float salBruto,valorBonus,subsidioAlimentacao,valorIliquido,IRS,valorLiquido;
 }Salario;
 
 void carregarFicheiro();
@@ -29,5 +29,6 @@ float calcularSubsidioAlimentacao(Salario *salarios)
 
 float calcularValorIliquido(Salario *salarios);
 
+float calcularValorLiquido(Salario *salarios);
 #endif /* SALARIOS_H */
 

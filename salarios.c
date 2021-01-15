@@ -7,34 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <input.h>
-#include <salarios.h>
-#include <funcionario.h>
-
-void menuSalarios(){
-    int op;
-    Salario salarios;
-    
-    do {
-        printf("\t GESTÃO DE \n");
-        printf("\tSALARIOS\n");
-        printf("-----------------------\n");
-        printf("1 - Carregar ficheiro de processamento de salário\n");
-        printf("2 - Processar os salários \n");
-        printf("0 - Voltar\n");
-        printf("-----------------------\n");
-
-        op = obter_int(0, 4, "Opção: ");
-        switch (op) {
-            case 1:
-                carregarFicheiro();
-                break;
-            case 2:
-                processarSalarios(Salario *salarios);
-                break;
-        }
-    }while(op != 0);
-}
+#include "input.h"
+#include "irs.h"
+#include "salarios.h"
+#include "funcionario.h"
 
 /**
  * Esta função vai ler o ficheiro com as informações para processar o salário
@@ -44,7 +20,7 @@ int carregarFicheiro(){
     Salario salarios;
     int mes;
     
-    mes = obter_int(1, 12,"Indique o mês que prentende processar");
+    mes = obter_int(1, 12,"Indique o mês que prentende processar (1 a 12)");
 
     switch (mes) {
         case 1:
@@ -194,7 +170,7 @@ int carregarFicheiro(){
  * Esta função vai calcular o salário base do funcionário
  * @param salarios
  */
-float calcularSalarioBase(Salario *salarios){
+float calcularSalarioBruto(Salario *salarios){
     Salario salarios;
     float salFimSemana,salFimSemanaValorizacao,salFimSemanaFinal,vencBase;
     
@@ -224,9 +200,9 @@ float calcularSalarioBase(Salario *salarios){
         salFimSemana = salarios.nDiasFimSemana  * (8 * vencBase);
         salFimSemanaValorizacao = salFimSemana *0.5;
         salFimSemanaFinal = salFimSemana + salFimSemanaValorizacao;
-        salarios.salBase = ((salarios.nDiasComp * (8 * vencBase)) + (salarios.nDiasMeio * (4 * vencBase)) + salFimSemanaFinal);
+        salarios.salBruto = ((salarios.nDiasComp * (8 * vencBase)) + (salarios.nDiasMeio * (4 * vencBase)) + salFimSemanaFinal);
 
-        return salarios.salBase;
+        return salarios.salBruto;
     }
 }
 
@@ -252,12 +228,12 @@ float calcularBonus(Salario *salarios){
     if(Funcionario.saida == 0){
         if(Funcionario.tempo_empresa >= 10){
             bonusAnos = 0.1;
-            salarios.valorBonus = calcularSalarioBase(&salarios) * bonusAnos;
+            salarios.valorBonus = calcularSalarioBruto(&salarios) * bonusAnos;
         }
 
         if(salarios.nDiasFalta == 0){
             bonusFaltas = 0.05;
-            salarios.valorBonus = calcularSalarioBase(&salarios) * bonusFaltas;
+            salarios.valorBonus = calcularSalarioBruto(&salarios) * bonusFaltas;
         }
 
         return salarios.valorBonus;
@@ -270,7 +246,7 @@ float calcularBonus(Salario *salarios){
  */
 float calcularValorIliquido(Salario *salarios){
     
-    salarios->valorIliquido = calcularSalarioBase(&salarios) + calcularBonus(&salarios);
+    salarios->valorIliquido = calcularSalarioBruto(&salarios) + calcularBonus(&salarios);
     
     return salarios->valorIliquido;
 }
@@ -279,8 +255,58 @@ float calcularValorIliquido(Salario *salarios){
  * Esta função vai calcular o valor liquido a receber pelo funcionário
  * @param *salarios
  */
-float processarSalarios(Salario *salarios){
+float calcularIRS(Salario *salarios){ 
+    int titular;
+    
+    titular = obter_int(1, 2,"Indique que tipo de titular é (1-unico; 2 - dois titulares)");
+    
+    if(titular == 1 && Funcionario.estado_civil == 1){
+        ler_tabela_casado_unico_titular(calcularValorIliquido(&salarios), Funcionario.numero_filhos);
+        return salarios->IRS = calcularSalarioBruto(&salarios) * ler_tabela_casado_unico_titular(calcularValorIliquido(&salarios), Funcionario.numero_filhos);;
+    }
+    
+     if(titular == 2 && Funcionario.estado_civil == 1){
+        ler_tabela_casado_dois_titulares(calcularValorIliquido(&salarios), Funcionario.numero_filhos);
+    }
+    
+    if(Funcionario.estado_civil == 3 || Funcionario.estado_civil == 4 || Funcionario.estado_civil == 0 || Funcionario.estado_civil == 2){
+        ler_tabela_nao_casado(calcularValorIliquido(&salarios), Funcionario.numero_filhos);
+    }
+    
+    return salarios->IRS = calcularSalarioBruto(&salarios) ;
+}
+
+/**
+ * Esta função vai calcular o valor liquido a receber pelo funcionário
+ * @param *salarios
+ */
+float calcularValorLiquido(Salario *salarios){
     
     return salarios->valorLiquido = calcularValorIliquido(&salarios) + calcularIRS(&salarios) + calcularSegurancaSocial(&salarios);
+}
+
+void menuSalarios(){
+    int op;
+    Salario salarios;
+    
+    do {
+        printf("\t GESTÃO DE \n");
+        printf("\tSALARIOS\n");
+        printf("-----------------------\n");
+        printf("1 - Carregar ficheiro de processamento de salário\n");
+        printf("2 - Processar os salários \n");
+        printf("0 - Voltar\n");
+        printf("-----------------------\n");
+
+        op = obter_int(0, 4, "Opção: ");
+        switch (op) {
+            case 1:
+                carregarFicheiro();
+                break;
+            case 2:
+                calcularValorLiquido(&salarios);
+                break;
+        }
+    }while(op != 0);
 }
 
